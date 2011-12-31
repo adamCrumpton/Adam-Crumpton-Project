@@ -134,7 +134,7 @@
     
     NSString *message;
     if (endReason == kEndReasonWin) {
-        message = @"You win!";
+        message = @"You rocked!";
     } else if (endReason == kEndReasonLose) {
         message = @"You lose!";
     }
