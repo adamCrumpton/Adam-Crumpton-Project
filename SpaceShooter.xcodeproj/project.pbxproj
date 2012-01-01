@@ -172,6 +172,7 @@
 		66DBCA7314911E01007A835A /* Sprites.plist in Resources */ = {isa = PBXBuildFile; fileRef = 66DBCA6014911E01007A835A /* Sprites.plist */; };
 		66DBCA7414911E01007A835A /* Sprites.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 66DBCA6114911E01007A835A /* Sprites.pvr.ccz */; };
 		66DBCA7714912905007A835A /* CCParallaxNode-Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 66DBCA7614912905007A835A /* CCParallaxNode-Extras.m */; };
+		F4C6932414B0E42D00DBF967 /* bg_background.png in Resources */ = {isa = PBXBuildFile; fileRef = F4C6932314B0E42D00DBF967 /* bg_background.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -460,6 +461,7 @@
 		66DBCA6114911E01007A835A /* Sprites.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Sprites.pvr.ccz; sourceTree = "<group>"; };
 		66DBCA7514912905007A835A /* CCParallaxNode-Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCParallaxNode-Extras.h"; sourceTree = "<group>"; };
 		66DBCA7614912905007A835A /* CCParallaxNode-Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCParallaxNode-Extras.m"; sourceTree = "<group>"; };
+		F4C6932314B0E42D00DBF967 /* bg_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_background.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -913,6 +915,7 @@
 		66DBCA4A14911E01007A835A /* Backgrounds */ = {
 			isa = PBXGroup;
 			children = (
+				F4C6932314B0E42D00DBF967 /* bg_background.png */,
 				66DBCA4B14911E01007A835A /* bg_front_spacedust.png */,
 				66DBCA4C14911E01007A835A /* bg_galaxy.png */,
 				66DBCA4D14911E01007A835A /* bg_planetsunrise.png */,
@@ -1071,6 +1074,7 @@
 				66DBCA7214911E01007A835A /* SpaceGame.caf in Resources */,
 				66DBCA7314911E01007A835A /* Sprites.plist in Resources */,
 				66DBCA7414911E01007A835A /* Sprites.pvr.ccz in Resources */,
+				F4C6932414B0E42D00DBF967 /* bg_background.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1278,6 +1282,7 @@
 				66DBCA4914911C3A007A835A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -6,7 +6,6 @@
 //  Copyright __MyCompanyName__ 2011. All rights reserved.
 //
 
-
 // Import the interfaces
 #import "HelloWorldLayer.h"
 #import "CCParallaxNode-Extras.h"
@@ -181,13 +180,14 @@
             [_backgroundNode incrementOffset:ccp(2*spaceDust.contentSize.width,0) forChild:spaceDust];
         }
     }
-    
+    /*
     NSArray *backgrounds = [NSArray arrayWithObjects:_planetsunrise, _galaxy, _spacialanomaly, _spacialanomaly2, nil];
     for (CCSprite *background in backgrounds) {
         if ([_backgroundNode convertToWorldSpace:background.position].x < -background.contentSize.width) {
             [_backgroundNode incrementOffset:ccp(2000,0) forChild:background];
         }
     }
+    */
     
     CGSize winSize = [CCDirector sharedDirector].winSize;
     float maxY = winSize.height - _ship.contentSize.height/2;
@@ -267,25 +267,37 @@
         _backgroundNode = [CCParallaxNode node];
         [self addChild:_backgroundNode z:-1];
         
+        //[CCTexture2D setDefaultAlphaPixelFormat:kTexture2DPixelFormat_RGBA8888];
+
+        
         // 2) Create the sprites we'll add to the CCParallaxNode
         _spacedust1 = [CCSprite spriteWithFile:@"bg_front_spacedust.png"];
         _spacedust2 = [CCSprite spriteWithFile:@"bg_front_spacedust.png"];
-        _planetsunrise = [CCSprite spriteWithFile:@"bg_planetsunrise.png"];
-        _galaxy = [CCSprite spriteWithFile:@"bg_galaxy.png"];
-        _spacialanomaly = [CCSprite spriteWithFile:@"bg_spacialanomaly.png"];
-        _spacialanomaly2 = [CCSprite spriteWithFile:@"bg_spacialanomaly2.png"];
+        
+        // Set higher bit-depth for background image to avoid banding on the background.
+        [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA8888];
+        _mainbg = [CCSprite spriteWithFile:@"bg_background.png"];
+        
+        //_planetsunrise = [CCSprite spriteWithFile:@"bg_planetsunrise.png"];
+        //_galaxy = [CCSprite spriteWithFile:@"bg_galaxy.png"];
+        //_spacialanomaly = [CCSprite spriteWithFile:@"bg_spacialanomaly.png"];
+        //_spacialanomaly2 = [CCSprite spriteWithFile:@"bg_spacialanomaly2.png"];
         
         // 3) Determine relative movement speeds for space dust and background
-        CGPoint dustSpeed = ccp(0.1, 0.1);
+        CGPoint dustSpeed = ccp(0.05, 0.05);
         CGPoint bgSpeed = ccp(0.05, 0.05);
+        CGPoint noSpeed = ccp(0, 0);
         
+        [_backgroundNode addChild:_mainbg z:0 parallaxRatio:noSpeed positionOffset:ccp(0, winSize.width/2)];
         // 4) Add children to CCParallaxNode
         [_backgroundNode addChild:_spacedust1 z:0 parallaxRatio:dustSpeed positionOffset:ccp(0,winSize.width/2)];
-        [_backgroundNode addChild:_spacedust2 z:0 parallaxRatio:dustSpeed positionOffset:ccp(_spacedust1.contentSize.width,winSize.height/2)];        
+        [_backgroundNode addChild:_spacedust2 z:0 parallaxRatio:dustSpeed positionOffset:ccp(_spacedust1.contentSize.width,winSize.width/2)];        
+        /*
         [_backgroundNode addChild:_galaxy z:-1 parallaxRatio:bgSpeed positionOffset:ccp(0,winSize.height * 0.7)];
         [_backgroundNode addChild:_planetsunrise z:-1 parallaxRatio:bgSpeed positionOffset:ccp(600,winSize.height * 0)];        
         [_backgroundNode addChild:_spacialanomaly z:-1 parallaxRatio:bgSpeed positionOffset:ccp(900,winSize.height * 0.3)];        
         [_backgroundNode addChild:_spacialanomaly2 z:-1 parallaxRatio:bgSpeed positionOffset:ccp(1500,winSize.height * 0.9)];
+         */
     
         NSArray *starsArray = [NSArray arrayWithObjects:@"Stars1.plist", @"Stars2.plist", @"Stars3.plist", nil];
         for(NSString *stars in starsArray) {        

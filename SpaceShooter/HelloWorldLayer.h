@@ -23,6 +23,7 @@ typedef enum {
     CCParallaxNode *_backgroundNode;
     CCSprite *_spacedust1;
     CCSprite *_spacedust2;
+    CCSprite *_mainbg;
     CCSprite *_planetsunrise;
     CCSprite *_galaxy;
     CCSprite *_spacialanomaly;
