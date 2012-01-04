@@ -168,6 +168,53 @@
     [label runAction:[CCScaleTo actionWithDuration:0.5 scale:1.0]];
     
 }
+//Enemy Ship finished moving
+-(void)enemyShipMoveFinished:(id)sender {
+    CCSprite *sprite = (CCSprite *)sender;
+    [self removeChild:sprite cleanup:YES];
+}
+
+//Add enemy ships
+-(void)addEnemyShip {
+    
+    EnemyShip *target = nil;
+    if ((arc4random() % 2) == 0) {
+        target = [WeakAndFastShip enemyShip];
+    } else {
+        target = [StrongAndSlowShip enemyShip];
+    }
+    
+    // Determine where to spawn the target along the Y axis
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    int minY = target.contentSize.height/2;
+    int maxY = winSize.height - target.contentSize.height/2;
+    int rangeY = maxY - minY;
+    int actualY = (arc4random() % rangeY) + minY;
+    
+    // Create the target slightly off-screen along the right edge,
+    // and along a random position along the Y axis as calculated above
+    target.position = ccp(winSize.width + (target.contentSize.width/2), actualY);
+    [self addChild:target];
+    
+    // Determine speed of the target
+    int minDuration = target.minMoveDuration;
+    int maxDuration = target.maxMoveDuration;
+    int rangeDuration = maxDuration - minDuration;
+    int actualDuration = (arc4random() % rangeDuration) + minDuration;
+    
+    // Create the actions
+    id actionMove = [CCMoveTo actionWithDuration:actualDuration 
+                                        position:ccp(-target.contentSize.width/2, actualY)];
+    id actionMoveDone = [CCCallFuncN actionWithTarget:self 
+                                             selector:@selector(enemyShipMoveFinished:)];
+    [target runAction:[CCSequence actions:actionMove, actionMoveDone, nil]];
+    
+}
+
+//Callback function at the bottom of init
+-(void)gameLogic:(ccTime)dt {
+    [self addEnemyShip];
+}
 
 // Add new update method
 - (void)update:(ccTime)dt {
@@ -330,6 +377,9 @@
     self.isTouchEnabled = YES;
     [self scheduleUpdate];
     self.isAccelerometerEnabled = YES;
+    
+    [self schedule:@selector(gameLogic:) interval:1.0];
+    
     return self;
 }
 
