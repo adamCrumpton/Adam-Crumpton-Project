@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		668E2A6714B4F838004F17FB /* EnemyShip.m in Sources */ = {isa = PBXBuildFile; fileRef = 668E2A6614B4F838004F17FB /* EnemyShip.m */; };
+		668E2A6A14B50010004F17FB /* enemyShip1.png in Resources */ = {isa = PBXBuildFile; fileRef = 668E2A6914B50010004F17FB /* enemyShip1.png */; };
 		66DBC89D14911C36007A835A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66DBC89C14911C36007A835A /* QuartzCore.framework */; };
 		66DBC89F14911C36007A835A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66DBC89E14911C36007A835A /* OpenGLES.framework */; };
 		66DBC8A114911C36007A835A /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66DBC8A014911C36007A835A /* OpenAL.framework */; };
@@ -179,6 +180,7 @@
 /* Begin PBXFileReference section */
 		668E2A6514B4F838004F17FB /* EnemyShip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyShip.h; sourceTree = "<group>"; };
 		668E2A6614B4F838004F17FB /* EnemyShip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnemyShip.m; sourceTree = "<group>"; };
+		668E2A6914B50010004F17FB /* enemyShip1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemyShip1.png; sourceTree = "<group>"; };
 		66DBC89814911C36007A835A /* SpaceShooter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceShooter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66DBC89C14911C36007A835A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		66DBC89E14911C36007A835A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -542,6 +544,7 @@
 		66DBC8AD14911C37007A835A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				668E2A6914B50010004F17FB /* enemyShip1.png */,
 				66DBCA4A14911E01007A835A /* Backgrounds */,
 				66DBCA5014911E01007A835A /* Fonts */,
 				66DBCA5314911E01007A835A /* Particles */,
@@ -1080,6 +1083,7 @@
 				66DBCA7314911E01007A835A /* Sprites.plist in Resources */,
 				66DBCA7414911E01007A835A /* Sprites.pvr.ccz in Resources */,
 				F4C6932414B0E42D00DBF967 /* bg_background.png in Resources */,
+				668E2A6A14B50010004F17FB /* enemyShip1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

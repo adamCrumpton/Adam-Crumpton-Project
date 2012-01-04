@@ -22,7 +22,7 @@
 + (id)enemyShip {
     
     WeakAndFastShip *enemyShip = nil;
-    if ((enemyShip = [[[super alloc] initWithFile:@"enemyShip.png"] autorelease])) {
+    if ((enemyShip = [[[super alloc] initWithFile:@"enemyShip1.png"] autorelease])) {
         enemyShip.hp = 1;
         enemyShip.minMoveDuration = 3;
         enemyShip.maxMoveDuration = 5;
@@ -38,7 +38,7 @@
 + (id)enemyShip {
     
     StrongAndSlowShip *enemyShip = nil;
-    if ((enemyShip = [[[super alloc] initWithFile:@"enemyShip.png"] autorelease])) {
+    if ((enemyShip = [[[super alloc] initWithFile:@"enemyShip1.png"] autorelease])) {
         enemyShip.hp = 3;
         enemyShip.minMoveDuration = 6;
         enemyShip.maxMoveDuration = 12;
