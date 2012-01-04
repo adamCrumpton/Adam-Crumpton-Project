@@ -10,6 +10,7 @@
 #import "HelloWorldLayer.h"
 #import "CCParallaxNode-Extras.h"
 #import "SimpleAudioEngine.h"
+#import "EnemyShip.h"
 #define kNumAsteroids   15
 #define kNumLasers      5
 
@@ -45,8 +46,8 @@
     rollingZ = (acceleration.z * kFilteringFactor) + (rollingZ * (1.0 - kFilteringFactor));
     
     float accelX = acceleration.x - rollingX;
-    float accelY = acceleration.y - rollingY;
-    float accelZ = acceleration.z - rollingZ;
+    //float accelY = acceleration.y - rollingY;
+    //float accelZ = acceleration.z - rollingZ;
     
     CGSize winSize = [CCDirector sharedDirector].winSize;
     
@@ -323,9 +324,9 @@
     [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"SpaceGame.caf" loop:YES];
     [[SimpleAudioEngine sharedEngine] preloadEffect:@"explosion_large.caf"];
     [[SimpleAudioEngine sharedEngine] preloadEffect:@"laser_ship.caf"];
-    _lives = 3000;
+    _lives = 3;
     double curTime = CACurrentMediaTime();
-    _gameOverTime = curTime + 300.0;
+    _gameOverTime = curTime + 30.0;
     self.isTouchEnabled = YES;
     [self scheduleUpdate];
     self.isAccelerometerEnabled = YES;
