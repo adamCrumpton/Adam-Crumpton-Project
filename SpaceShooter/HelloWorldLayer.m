@@ -1,24 +1,23 @@
-//
-//  HelloWorldLayer.m
-//  SpaceShooter
-//
-//  Created by Adam Crumpton on 12/8/11.
-//  Copyright __MyCompanyName__ 2011. All rights reserved.
-//
-
 // Import the interfaces
 #import "HelloWorldLayer.h"
 #import "CCParallaxNode-Extras.h"
 #import "SimpleAudioEngine.h"
-#import "Enemy.h"
+#import "EnemyShip.h"
+
+// number of asteroid sprites allocated for reuse.
 #define kNumAsteroids   15
+// number of laser sprites allocated for reuse.
 #define kNumLasers      5
+
+#define kFilteringFactor 0.1
+#define kRestAccelX -0.6
+#define kShipMaxPointsPerSec (winSize.height*0.5)        
+#define kMaxDiffX 0.2
 
 // HelloWorldLayer implementation
 @implementation HelloWorldLayer
 
-+(CCScene *) scene
-{
++(CCScene *) scene {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
 	
@@ -32,13 +31,7 @@
 	return scene;
 }
 
-- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
-    
-#define kFilteringFactor 0.1
-#define kRestAccelX -0.6
-#define kShipMaxPointsPerSec (winSize.height*0.5)        
-#define kMaxDiffX 0.2
-    
+- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {        
     UIAccelerationValue rollingX, rollingY, rollingZ;
     
     rollingX = (acceleration.x * kFilteringFactor) + (rollingX * (1.0 - kFilteringFactor));    
@@ -68,7 +61,6 @@
 }
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInView:[touch view]];
     location = [[CCDirector sharedDirector] convertToGL:location];
@@ -166,22 +158,26 @@
     
     [restartItem runAction:[CCScaleTo actionWithDuration:0.5 scale:1.0]];
     [label runAction:[CCScaleTo actionWithDuration:0.5 scale:1.0]];
+     
     
 }
+
 //Enemy Ship finished moving
 -(void)enemyShipMoveFinished:(id)sender {
     CCSprite *sprite = (CCSprite *)sender;
     [self removeChild:sprite cleanup:YES];
 }
-
 //Add enemy ships
 -(void)addEnemyShip {
     
-    Enemy *target = nil;
+    EnemyShip *target = nil;
+    // randomize between two different types of ships.
     if ((arc4random() % 2) == 0) {
-        target = [[Enemy new] initWithHp:1 min:3 max:5 andImage:@"enemyShip1.png"];
+        // weak and fast
+        target = [EnemyShip shipWithHp:1 min:3 max:5 imageOrNil:nil];
     } else {
-        target = [[Enemy new] initWithHp:3 min:6 max:12 andImage:@"enemyShip1.png"];
+        // strong and slow
+        target = [EnemyShip shipWithHp:3 min:6 max:12 imageOrNil:nil];
     }
     
     // Determine where to spawn the target along the Y axis
@@ -221,22 +217,13 @@
     
     CGPoint backgroundScrollVel = ccp(-1000, 0);
     _backgroundNode.position = ccpAdd(_backgroundNode.position, ccpMult(backgroundScrollVel, dt));
- 
     NSArray *spaceDusts = [NSArray arrayWithObjects:_spacedust1, _spacedust2, nil];
     for (CCSprite *spaceDust in spaceDusts) {
         if ([_backgroundNode convertToWorldSpace:spaceDust.position].x < -spaceDust.contentSize.width) {
             [_backgroundNode incrementOffset:ccp(2*spaceDust.contentSize.width,0) forChild:spaceDust];
         }
     }
-    /*
-    NSArray *backgrounds = [NSArray arrayWithObjects:_planetsunrise, _galaxy, _spacialanomaly, _spacialanomaly2, nil];
-    for (CCSprite *background in backgrounds) {
-        if ([_backgroundNode convertToWorldSpace:background.position].x < -background.contentSize.width) {
-            [_backgroundNode incrementOffset:ccp(2000,0) forChild:background];
-        }
-    }
-    */
-    
+
     CGSize winSize = [CCDirector sharedDirector].winSize;
     float maxY = winSize.height - _ship.contentSize.height/2;
     float minY = _ship.contentSize.height/2;
@@ -246,18 +233,17 @@
     _ship.position = ccp(_ship.position.x, newY);
     
     double curTime = CACurrentMediaTime();
+    // spawn the next asteroid when it is time.
     if (curTime > _nextAsteroidSpawn) {
-        
+        // come up with a new random spawn time for the next asteroid.
         float randSecs = [self randomValueBetween:0.20 andValue:1.0];
         _nextAsteroidSpawn = randSecs + curTime;
         
+        // randomize location and speed.
         float randY = [self randomValueBetween:0.0 andValue:winSize.height];
         float randDuration = [self randomValueBetween:2.0 andValue:10.0];
         
-        CCSprite *asteroid = [_asteroids objectAtIndex:_nextAsteroid];
-        _nextAsteroid++;
-        if (_nextAsteroid >= _asteroids.count) _nextAsteroid = 0;
-        
+        CCSprite *asteroid = [_asteroids objectAtIndex:_nextAsteroid];                
         [asteroid stopAllActions];
         asteroid.position = ccp(winSize.width+asteroid.contentSize.width/2, randY);
         asteroid.visible = YES;
@@ -266,6 +252,9 @@
                              [CCCallFuncN actionWithTarget:self selector:@selector(setInvisible:)],
                              nil]];
         
+        // if we've gone through all asteroids in the array, start over.
+        _nextAsteroid++;
+        if (_nextAsteroid >= _asteroids.count) _nextAsteroid = 0;        
     }
     for (CCSprite *asteroid in _asteroids) {        
         if (!asteroid.visible) continue;
@@ -297,63 +286,51 @@
     }
 }
 
-// on "init" you need to initialize your instance
--(id) init
+-(void) initAudio 
 {
-    if( (self=[super init])) {
-        
-        _batchNode = [CCSpriteBatchNode batchNodeWithFile:@"Sprites.pvr.ccz"]; // 1
-        [self addChild:_batchNode]; // 2
-        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Sprites.plist"]; // 3
-        
-        _ship = [CCSprite spriteWithSpriteFrameName:@"SpaceFlier_sm_1.png"];  // 4
-        CGSize winSize = [CCDirector sharedDirector].winSize; // 5
-        _ship.position = ccp(winSize.height * 0.1, winSize.width * 0.5); // 6
-        [_batchNode addChild:_ship z:1]; // 7
-        
-        // 1) Create the CCParallaxNode
-        _backgroundNode = [CCParallaxNode node];
-        [self addChild:_backgroundNode z:-1];
-        
-        //[CCTexture2D setDefaultAlphaPixelFormat:kTexture2DPixelFormat_RGBA8888];
+    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"SpaceGame.caf" loop:YES];
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"explosion_large.caf"];
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"laser_ship.caf"];
+}
 
-        
-        // 2) Create the sprites we'll add to the CCParallaxNode
-        _spacedust1 = [CCSprite spriteWithFile:@"bg_front_spacedust.png"];
-        _spacedust2 = [CCSprite spriteWithFile:@"bg_front_spacedust.png"];
-        
-        // Set higher bit-depth for background image to avoid banding on the background.
-        [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA8888];
-        _mainbg = [CCSprite spriteWithFile:@"bg_background.png"];
-        
-        //_planetsunrise = [CCSprite spriteWithFile:@"bg_planetsunrise.png"];
-        //_galaxy = [CCSprite spriteWithFile:@"bg_galaxy.png"];
-        //_spacialanomaly = [CCSprite spriteWithFile:@"bg_spacialanomaly.png"];
-        //_spacialanomaly2 = [CCSprite spriteWithFile:@"bg_spacialanomaly2.png"];
-        
-        // 3) Determine relative movement speeds for space dust and background
-        CGPoint dustSpeed = ccp(0.05, 0.05);
-        CGPoint bgSpeed = ccp(0.05, 0.05);
-        CGPoint noSpeed = ccp(0, 0);
-        
-        [_backgroundNode addChild:_mainbg z:0 parallaxRatio:noSpeed positionOffset:ccp(0, winSize.width/2)];
-        // 4) Add children to CCParallaxNode
-        [_backgroundNode addChild:_spacedust1 z:0 parallaxRatio:dustSpeed positionOffset:ccp(0,winSize.width/2)];
-        [_backgroundNode addChild:_spacedust2 z:0 parallaxRatio:dustSpeed positionOffset:ccp(_spacedust1.contentSize.width,winSize.width/2)];        
-        /*
-        [_backgroundNode addChild:_galaxy z:-1 parallaxRatio:bgSpeed positionOffset:ccp(0,winSize.height * 0.7)];
-        [_backgroundNode addChild:_planetsunrise z:-1 parallaxRatio:bgSpeed positionOffset:ccp(600,winSize.height * 0)];        
-        [_backgroundNode addChild:_spacialanomaly z:-1 parallaxRatio:bgSpeed positionOffset:ccp(900,winSize.height * 0.3)];        
-        [_backgroundNode addChild:_spacialanomaly2 z:-1 parallaxRatio:bgSpeed positionOffset:ccp(1500,winSize.height * 0.9)];
-         */
+-(void) initBackground 
+{
+    CGSize winSize = [CCDirector sharedDirector].winSize;
     
-        NSArray *starsArray = [NSArray arrayWithObjects:@"Stars1.plist", @"Stars2.plist", @"Stars3.plist", nil];
-        for(NSString *stars in starsArray) {        
-            CCParticleSystemQuad *starsEffect = [CCParticleSystemQuad particleWithFile:stars];        
-            [self addChild:starsEffect z:1];
-        }
+    // planet background.
+    // Set higher bit-depth for background image to avoid banding on the background.
+    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA8888];
+    _mainbg = [CCSprite spriteWithFile:@"bg_background.png"];
+    _mainbg.position = ccp(0, winSize.width/2);
+    [self addChild: _mainbg z:-1];
+    // reset back to lower bit-depth.
+    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA4444];
+    
+    // background star parallaxing.
+    _backgroundNode = [CCParallaxNode node];
+    CGPoint dustSpeed = ccp(0.05, 0.05);    
+    _spacedust1 = [CCSprite spriteWithFile:@"bg_front_spacedust.png"];
+    _spacedust2 = [CCSprite spriteWithFile:@"bg_front_spacedust.png"];    
+    [_backgroundNode addChild:_spacedust1 z:0 parallaxRatio:dustSpeed positionOffset:ccp(0,winSize.width/2)];
+    [_backgroundNode addChild:_spacedust2 z:0 parallaxRatio:dustSpeed positionOffset:ccp(_spacedust1.contentSize.width,winSize.width/2)];            
+    [self addChild:_backgroundNode z:-1];
+    
+    // fast flying spacedust.
+    NSArray *starsArray = [NSArray arrayWithObjects:@"Stars1.plist", @"Stars2.plist", @"Stars3.plist", nil];
+    for(NSString *stars in starsArray) {        
+        CCParticleSystemQuad *starsEffect = [CCParticleSystemQuad particleWithFile:stars];        
+        [self addChild:starsEffect z:1];
+    }   
+}
 
-    }
+
+/*
+ * Pre-allocates all sprites used and stores them in 
+ * their corresponding arrays.
+*/
+-(void) initGameAssets 
+{
+    // Allocate asteroids.
     _asteroids = [[CCArray alloc] initWithCapacity:kNumAsteroids];
     for(int i = 0; i < kNumAsteroids; ++i) {
         CCSprite *asteroid = [CCSprite spriteWithSpriteFrameName:@"asteroid.png"];
@@ -361,31 +338,51 @@
         [_batchNode addChild:asteroid];
         [_asteroids addObject:asteroid];
     }
+    
+    // Allocate lasers.
     _shipLasers = [[CCArray alloc] initWithCapacity:kNumLasers];
     for(int i = 0; i < kNumLasers; ++i) {
         CCSprite *shipLaser = [CCSprite spriteWithSpriteFrameName:@"laserbeam_blue.png"];
         shipLaser.visible = NO;
         [_batchNode addChild:shipLaser];
         [_shipLasers addObject:shipLaser];
+    }        
+}
+
+// on "init" you need to initialize your instance
+-(id) init {
+    if((self=[super init])) {                                
+        // load up spritesheet.
+        _batchNode = [CCSpriteBatchNode batchNodeWithFile:@"Sprites.pvr.ccz"];
+        [self addChild:_batchNode];
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Sprites.plist"];
+        
+        // initialize planet background.
+        [self initBackground];
+        
+        // add ship to middle of screen.        
+        _ship = [CCSprite spriteWithSpriteFrameName:@"SpaceFlier_sm_1.png"];
+        CGSize winSize = [CCDirector sharedDirector].winSize;
+        _ship.position = ccp(winSize.height * 0.1, winSize.width * 0.5);
+        [_batchNode addChild:_ship z:1];        
     }
-    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"SpaceGame.caf" loop:YES];
-    [[SimpleAudioEngine sharedEngine] preloadEffect:@"explosion_large.caf"];
-    [[SimpleAudioEngine sharedEngine] preloadEffect:@"laser_ship.caf"];
-    _lives = 3;
+    
+    [self initGameAssets];
+    [self initAudio];
+
     double curTime = CACurrentMediaTime();
-    _gameOverTime = curTime + 30.0;
+    _lives = 3;
+    _gameOverTime = curTime + 30.0;    
     self.isTouchEnabled = YES;
-    [self scheduleUpdate];
     self.isAccelerometerEnabled = YES;
     
-    [self schedule:@selector(gameLogic:) interval:1.0];
-    
+    [self scheduleUpdate];
+    [self schedule:@selector(gameLogic:) interval:1.0];    
     return self;
 }
 
 // on "dealloc" you need to release all your retained objects
-- (void) dealloc
-{
+- (void) dealloc {
 	// in case you have something to dealloc, do it in this method
 	// in this particular example nothing needs to be released.
 	// cocos2d will automatically release all the children (Label)
