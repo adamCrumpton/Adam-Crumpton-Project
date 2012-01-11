@@ -10,7 +10,7 @@
 #import "HelloWorldLayer.h"
 #import "CCParallaxNode-Extras.h"
 #import "SimpleAudioEngine.h"
-#import "EnemyShip.h"
+#import "Enemy.h"
 #define kNumAsteroids   15
 #define kNumLasers      5
 
@@ -177,11 +177,11 @@
 //Add enemy ships
 -(void)addEnemyShip {
     
-    EnemyShip *target = nil;
+    Enemy *target = nil;
     if ((arc4random() % 2) == 0) {
-        target = [WeakAndFastShip enemyShip];
+        target = [[Enemy new] initWithHp:1 min:3 max:5 andImage:@"enemyShip1.png"];
     } else {
-        target = [StrongAndSlowShip enemyShip];
+        target = [[Enemy new] initWithHp:3 min:6 max:12 andImage:@"enemyShip1.png"];
     }
     
     // Determine where to spawn the target along the Y axis

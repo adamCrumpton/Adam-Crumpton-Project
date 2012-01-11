@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		668E2A6714B4F838004F17FB /* EnemyShip.m in Sources */ = {isa = PBXBuildFile; fileRef = 668E2A6614B4F838004F17FB /* EnemyShip.m */; };
+		664DBD7A14B760E30000983D /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = 664DBD7914B760E30000983D /* Enemy.m */; };
 		668E2A6A14B50010004F17FB /* enemyShip1.png in Resources */ = {isa = PBXBuildFile; fileRef = 668E2A6914B50010004F17FB /* enemyShip1.png */; };
 		66DBC89D14911C36007A835A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66DBC89C14911C36007A835A /* QuartzCore.framework */; };
 		66DBC89F14911C36007A835A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66DBC89E14911C36007A835A /* OpenGLES.framework */; };
@@ -178,8 +178,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		668E2A6514B4F838004F17FB /* EnemyShip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyShip.h; sourceTree = "<group>"; };
-		668E2A6614B4F838004F17FB /* EnemyShip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnemyShip.m; sourceTree = "<group>"; };
+		664DBD7814B760E30000983D /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
+		664DBD7914B760E30000983D /* Enemy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Enemy.m; sourceTree = "<group>"; };
 		668E2A6914B50010004F17FB /* enemyShip1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemyShip1.png; sourceTree = "<group>"; };
 		66DBC89814911C36007A835A /* SpaceShooter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceShooter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66DBC89C14911C36007A835A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -530,8 +530,8 @@
 				66DBCA3F14911C3A007A835A /* RootViewController.h */,
 				66DBCA4014911C3A007A835A /* RootViewController.m */,
 				66DBCA4214911C3A007A835A /* HelloWorldLayer.h */,
-				668E2A6514B4F838004F17FB /* EnemyShip.h */,
-				668E2A6614B4F838004F17FB /* EnemyShip.m */,
+				664DBD7814B760E30000983D /* Enemy.h */,
+				664DBD7914B760E30000983D /* Enemy.m */,
 				66DBCA4314911C3A007A835A /* HelloWorldLayer.m */,
 				66DBC8AD14911C37007A835A /* Resources */,
 				66DBC8C314911C37007A835A /* Shaders */,
@@ -1194,7 +1194,7 @@
 				66DBCA4114911C3A007A835A /* RootViewController.m in Sources */,
 				66DBCA4414911C3A007A835A /* HelloWorldLayer.m in Sources */,
 				66DBCA7714912905007A835A /* CCParallaxNode-Extras.m in Sources */,
-				668E2A6714B4F838004F17FB /* EnemyShip.m in Sources */,
+				664DBD7A14B760E30000983D /* Enemy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
