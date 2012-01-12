@@ -3,6 +3,7 @@
 #import "CCParallaxNode-Extras.h"
 #import "SimpleAudioEngine.h"
 #import "EnemyShip.h"
+#import "Enemy.h"
 
 // number of asteroid sprites allocated for reuse.
 #define kNumAsteroids   15
@@ -208,12 +209,38 @@
 }
 
 //Callback function at the bottom of init
--(void)gameLogic:(ccTime)dt {
+- (void) gameLogic:(ccTime)dt {
     [self addEnemyShip];
 }
 
-// Add new update method
-- (void)update:(ccTime)dt {
+- (void)collisionChecks {
+    for (Enemy *asteroid in _asteroids) {        
+        if(![asteroid isActive]) continue;
+        
+        // check for collisions between ship lasers and asteroids.        
+        for (CCSprite *shipLaser in _shipLasers) {                        
+            if (!shipLaser.visible) continue;            
+            // if collision has been found, remove
+            // laser and asteroid.
+            if([asteroid collidesWith:shipLaser]) {
+                shipLaser.visible = NO;                
+                [asteroid destroy];
+                [[SimpleAudioEngine sharedEngine] playEffect:@"explosion_large.caf"];
+                continue;
+            }
+        }
+        
+        // check for collisions between ship and asteroids.
+        if ([asteroid collidesWith:_ship]) {
+            [asteroid destroy];
+            [[SimpleAudioEngine sharedEngine] playEffect:@"shake.caf"];
+            [_ship runAction:[CCBlink actionWithDuration:1.0 blinks:9]];            
+            _lives--;
+        }
+    }
+}
+
+- (void) update:(ccTime)dt {
     
     CGPoint backgroundScrollVel = ccp(-1000, 0);
     _backgroundNode.position = ccpAdd(_backgroundNode.position, ccpMult(backgroundScrollVel, dt));
@@ -226,8 +253,7 @@
 
     CGSize winSize = [CCDirector sharedDirector].winSize;
     float maxY = winSize.height - _ship.contentSize.height/2;
-    float minY = _ship.contentSize.height/2;
-    
+    float minY = _ship.contentSize.height/2;    
     float newY = _ship.position.y + (_shipPointsPerSecY * dt);
     newY = MIN(MAX(newY, minY), maxY);
     _ship.position = ccp(_ship.position.x, newY);
@@ -239,44 +265,18 @@
         float randSecs = [self randomValueBetween:0.20 andValue:1.0];
         _nextAsteroidSpawn = randSecs + curTime;
         
-        // randomize location and speed.
-        float randY = [self randomValueBetween:0.0 andValue:winSize.height];
-        float randDuration = [self randomValueBetween:2.0 andValue:10.0];
+        // activate new asteroid
+        float randDuration = [self randomValueBetween:2.0 andValue: 10.0];
+        Enemy *asteroid = [_asteroids objectAtIndex:_nextAsteroid];
+        [asteroid activateWithDuration:randDuration];
         
-        CCSprite *asteroid = [_asteroids objectAtIndex:_nextAsteroid];                
-        [asteroid stopAllActions];
-        asteroid.position = ccp(winSize.width+asteroid.contentSize.width/2, randY);
-        asteroid.visible = YES;
-        [asteroid runAction:[CCSequence actions:
-                             [CCMoveBy actionWithDuration:randDuration position:ccp(-winSize.width-asteroid.contentSize.width, 0)],
-                             [CCCallFuncN actionWithTarget:self selector:@selector(setInvisible:)],
-                             nil]];
-        
-        // if we've gone through all asteroids in the array, start over.
+        // if we've gone through all asteroids objects in the array, start over.
         _nextAsteroid++;
         if (_nextAsteroid >= _asteroids.count) _nextAsteroid = 0;        
     }
-    for (CCSprite *asteroid in _asteroids) {        
-        if (!asteroid.visible) continue;
-        
-        for (CCSprite *shipLaser in _shipLasers) {                        
-            if (!shipLaser.visible) continue;
-            
-            if (CGRectIntersectsRect(shipLaser.boundingBox, asteroid.boundingBox)) {    
-                [[SimpleAudioEngine sharedEngine] playEffect:@"explosion_large.caf"];
-                shipLaser.visible = NO;
-                asteroid.visible = NO;                
-                continue;
-            }
-        }
-        
-        if (CGRectIntersectsRect(_ship.boundingBox, asteroid.boundingBox)) {
-            [[SimpleAudioEngine sharedEngine] playEffect:@"shake.caf"];
-            asteroid.visible = NO;
-            [_ship runAction:[CCBlink actionWithDuration:1.0 blinks:9]];            
-            _lives--;
-        }
-    }
+    
+    [self collisionChecks];
+    
     if (_lives <= 0) {
         [_ship stopAllActions];
         _ship.visible = FALSE;
@@ -332,9 +332,12 @@
 {
     // Allocate asteroids.
     _asteroids = [[CCArray alloc] initWithCapacity:kNumAsteroids];
-    for(int i = 0; i < kNumAsteroids; ++i) {
+    for(int i = 0; i < kNumAsteroids; ++i) { 
+        Enemy *asteroid = [Enemy enemyWithSpriteName:@"asteroid.png"];
+        /*
         CCSprite *asteroid = [CCSprite spriteWithSpriteFrameName:@"asteroid.png"];
         asteroid.visible = NO;
+        */
         [_batchNode addChild:asteroid];
         [_asteroids addObject:asteroid];
     }

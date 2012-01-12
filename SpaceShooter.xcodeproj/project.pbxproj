@@ -176,6 +176,7 @@
 		66DBCA7714912905007A835A /* CCParallaxNode-Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 66DBCA7614912905007A835A /* CCParallaxNode-Extras.m */; };
 		F4C6932414B0E42D00DBF967 /* bg_background.png in Resources */ = {isa = PBXBuildFile; fileRef = F4C6932314B0E42D00DBF967 /* bg_background.png */; };
 		F4E6E7AF14BE597300E217C4 /* EnemyShip.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6E7AE14BE597300E217C4 /* EnemyShip.m */; };
+		F4E6E7B614BE823D00E217C4 /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6E7B514BE823D00E217C4 /* Enemy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -468,6 +469,8 @@
 		F4C6932314B0E42D00DBF967 /* bg_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_background.png; sourceTree = "<group>"; };
 		F4E6E7AD14BE597300E217C4 /* EnemyShip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyShip.h; sourceTree = "<group>"; };
 		F4E6E7AE14BE597300E217C4 /* EnemyShip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnemyShip.m; sourceTree = "<group>"; };
+		F4E6E7B414BE823D00E217C4 /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
+		F4E6E7B514BE823D00E217C4 /* Enemy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Enemy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -534,6 +537,8 @@
 				66DBCA4314911C3A007A835A /* HelloWorldLayer.m */,
 				F4E6E7AD14BE597300E217C4 /* EnemyShip.h */,
 				F4E6E7AE14BE597300E217C4 /* EnemyShip.m */,
+				F4E6E7B414BE823D00E217C4 /* Enemy.h */,
+				F4E6E7B514BE823D00E217C4 /* Enemy.m */,
 				66DBC8AD14911C37007A835A /* Resources */,
 				66DBC8C314911C37007A835A /* Shaders */,
 				66DBC8FA14911C37007A835A /* libs */,
@@ -1197,6 +1202,7 @@
 				66DBCA7714912905007A835A /* CCParallaxNode-Extras.m in Sources */,
 				668E2A6714B4F838004F17FB /* (null) in Sources */,
 				F4E6E7AF14BE597300E217C4 /* EnemyShip.m in Sources */,
+				F4E6E7B614BE823D00E217C4 /* Enemy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
