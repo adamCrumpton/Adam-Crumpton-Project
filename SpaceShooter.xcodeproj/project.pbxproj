@@ -171,9 +171,11 @@
 		66DBCA7014911E01007A835A /* powerup.caf in Resources */ = {isa = PBXBuildFile; fileRef = 66DBCA5C14911E01007A835A /* powerup.caf */; };
 		66DBCA7114911E01007A835A /* shake.caf in Resources */ = {isa = PBXBuildFile; fileRef = 66DBCA5D14911E01007A835A /* shake.caf */; };
 		66DBCA7214911E01007A835A /* SpaceGame.caf in Resources */ = {isa = PBXBuildFile; fileRef = 66DBCA5E14911E01007A835A /* SpaceGame.caf */; };
-		66DBCA7314911E01007A835A /* Sprites.plist in Resources */ = {isa = PBXBuildFile; fileRef = 66DBCA6014911E01007A835A /* Sprites.plist */; };
-		66DBCA7414911E01007A835A /* Sprites.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = 66DBCA6114911E01007A835A /* Sprites.pvr.ccz */; };
 		66DBCA7714912905007A835A /* CCParallaxNode-Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 66DBCA7614912905007A835A /* CCParallaxNode-Extras.m */; };
+		F46092B714BFC0CE00CAB8F3 /* Sprites.plist in Resources */ = {isa = PBXBuildFile; fileRef = F46092B514BFC0CE00CAB8F3 /* Sprites.plist */; };
+		F46092B814BFC0CE00CAB8F3 /* Sprites.png in Resources */ = {isa = PBXBuildFile; fileRef = F46092B614BFC0CE00CAB8F3 /* Sprites.png */; };
+		F46092BA14BFC72800CAB8F3 /* Comet.plist in Resources */ = {isa = PBXBuildFile; fileRef = F46092B914BFC72800CAB8F3 /* Comet.plist */; };
+		F46092BD14BFCAC600CAB8F3 /* Asteroid.m in Sources */ = {isa = PBXBuildFile; fileRef = F46092BC14BFCAC600CAB8F3 /* Asteroid.m */; };
 		F4C6932414B0E42D00DBF967 /* bg_background.png in Resources */ = {isa = PBXBuildFile; fileRef = F4C6932314B0E42D00DBF967 /* bg_background.png */; };
 		F4E6E7AF14BE597300E217C4 /* EnemyShip.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6E7AE14BE597300E217C4 /* EnemyShip.m */; };
 		F4E6E7B614BE823D00E217C4 /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6E7B514BE823D00E217C4 /* Enemy.m */; };
@@ -462,10 +464,13 @@
 		66DBCA5C14911E01007A835A /* powerup.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = powerup.caf; sourceTree = "<group>"; };
 		66DBCA5D14911E01007A835A /* shake.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shake.caf; sourceTree = "<group>"; };
 		66DBCA5E14911E01007A835A /* SpaceGame.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpaceGame.caf; sourceTree = "<group>"; };
-		66DBCA6014911E01007A835A /* Sprites.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Sprites.plist; sourceTree = "<group>"; };
-		66DBCA6114911E01007A835A /* Sprites.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Sprites.pvr.ccz; sourceTree = "<group>"; };
 		66DBCA7514912905007A835A /* CCParallaxNode-Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCParallaxNode-Extras.h"; sourceTree = "<group>"; };
 		66DBCA7614912905007A835A /* CCParallaxNode-Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCParallaxNode-Extras.m"; sourceTree = "<group>"; };
+		F46092B514BFC0CE00CAB8F3 /* Sprites.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Sprites.plist; sourceTree = "<group>"; };
+		F46092B614BFC0CE00CAB8F3 /* Sprites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sprites.png; sourceTree = "<group>"; };
+		F46092B914BFC72800CAB8F3 /* Comet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Comet.plist; sourceTree = "<group>"; };
+		F46092BB14BFCAC600CAB8F3 /* Asteroid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Asteroid.h; sourceTree = "<group>"; };
+		F46092BC14BFCAC600CAB8F3 /* Asteroid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Asteroid.m; sourceTree = "<group>"; };
 		F4C6932314B0E42D00DBF967 /* bg_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_background.png; sourceTree = "<group>"; };
 		F4E6E7AD14BE597300E217C4 /* EnemyShip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyShip.h; sourceTree = "<group>"; };
 		F4E6E7AE14BE597300E217C4 /* EnemyShip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnemyShip.m; sourceTree = "<group>"; };
@@ -539,6 +544,8 @@
 				F4E6E7AE14BE597300E217C4 /* EnemyShip.m */,
 				F4E6E7B414BE823D00E217C4 /* Enemy.h */,
 				F4E6E7B514BE823D00E217C4 /* Enemy.m */,
+				F46092BB14BFCAC600CAB8F3 /* Asteroid.h */,
+				F46092BC14BFCAC600CAB8F3 /* Asteroid.m */,
 				66DBC8AD14911C37007A835A /* Resources */,
 				66DBC8C314911C37007A835A /* Shaders */,
 				66DBC8FA14911C37007A835A /* libs */,
@@ -951,6 +958,7 @@
 		66DBCA5314911E01007A835A /* Particles */ = {
 			isa = PBXGroup;
 			children = (
+				F46092B914BFC72800CAB8F3 /* Comet.plist */,
 				66DBCA5414911E01007A835A /* Stars1.plist */,
 				66DBCA5514911E01007A835A /* Stars2.plist */,
 				66DBCA5614911E01007A835A /* Stars3.plist */,
@@ -975,8 +983,8 @@
 		66DBCA5F14911E01007A835A /* Spritesheets */ = {
 			isa = PBXGroup;
 			children = (
-				66DBCA6014911E01007A835A /* Sprites.plist */,
-				66DBCA6114911E01007A835A /* Sprites.pvr.ccz */,
+				F46092B514BFC0CE00CAB8F3 /* Sprites.plist */,
+				F46092B614BFC0CE00CAB8F3 /* Sprites.png */,
 			);
 			path = Spritesheets;
 			sourceTree = "<group>";
@@ -1086,10 +1094,11 @@
 				66DBCA7014911E01007A835A /* powerup.caf in Resources */,
 				66DBCA7114911E01007A835A /* shake.caf in Resources */,
 				66DBCA7214911E01007A835A /* SpaceGame.caf in Resources */,
-				66DBCA7314911E01007A835A /* Sprites.plist in Resources */,
-				66DBCA7414911E01007A835A /* Sprites.pvr.ccz in Resources */,
 				F4C6932414B0E42D00DBF967 /* bg_background.png in Resources */,
 				668E2A6A14B50010004F17FB /* enemyShip1.png in Resources */,
+				F46092B714BFC0CE00CAB8F3 /* Sprites.plist in Resources */,
+				F46092B814BFC0CE00CAB8F3 /* Sprites.png in Resources */,
+				F46092BA14BFC72800CAB8F3 /* Comet.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1203,6 +1212,7 @@
 				668E2A6714B4F838004F17FB /* (null) in Sources */,
 				F4E6E7AF14BE597300E217C4 /* EnemyShip.m in Sources */,
 				F4E6E7B614BE823D00E217C4 /* Enemy.m in Sources */,
+				F46092BD14BFCAC600CAB8F3 /* Asteroid.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

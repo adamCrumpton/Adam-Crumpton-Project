@@ -334,12 +334,12 @@
     _asteroids = [[CCArray alloc] initWithCapacity:kNumAsteroids];
     for(int i = 0; i < kNumAsteroids; ++i) { 
         Enemy *asteroid = [Enemy enemyWithSpriteName:@"asteroid.png"];
-        /*
-        CCSprite *asteroid = [CCSprite spriteWithSpriteFrameName:@"asteroid.png"];
-        asteroid.visible = NO;
-        */
-        [_batchNode addChild:asteroid];
+        [self addChild:asteroid];
         [_asteroids addObject:asteroid];
+        
+        CCParticleSystem *fire = [CCParticleSystemQuad particleWithFile:@"Comet.plist"];
+        fire.position = ccp(8, 8);
+        [asteroid addChild:fire z:1];
     }
     
     // Allocate lasers.
@@ -356,7 +356,7 @@
 -(id) init {
     if((self=[super init])) {                                
         // load up spritesheet.
-        _batchNode = [CCSpriteBatchNode batchNodeWithFile:@"Sprites.pvr.ccz"];
+        _batchNode = [CCSpriteBatchNode batchNodeWithFile:@"Sprites.png"];
         [self addChild:_batchNode];
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"Sprites.plist"];
         
@@ -364,11 +364,11 @@
         [self initBackground];
         
         // add ship to middle of screen.        
-        _ship = [CCSprite spriteWithSpriteFrameName:@"SpaceFlier_sm_1.png"];
+        _ship = [CCSprite spriteWithSpriteFrameName:@"ship.png"];
         CGSize winSize = [CCDirector sharedDirector].winSize;
         _ship.position = ccp(winSize.height * 0.1, winSize.width * 0.5);
         [_batchNode addChild:_ship z:1];        
-    }
+    }    
     
     [self initGameAssets];
     [self initAudio];
@@ -380,7 +380,8 @@
     self.isAccelerometerEnabled = YES;
     
     [self scheduleUpdate];
-    [self schedule:@selector(gameLogic:) interval:1.0];    
+    [self schedule:@selector(gameLogic:) interval:1.0];
+    
     return self;
 }
 

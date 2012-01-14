@@ -1,150 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <dict>
-        <key>frames</key>
-        <dict>
-            <key>SpaceFlier_lg_1.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{104,127},{102,53}}</string>
-                <key>offset</key>
-                <string>{-4,-1}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{5,7},{102,53}}</string>
-                <key>sourceSize</key>
-                <string>{120,65}</string>
-            </dict>
-            <key>SpaceFlier_lg_2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{51,127},{102,53}}</string>
-                <key>offset</key>
-                <string>{-4,-1}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{5,7},{102,53}}</string>
-                <key>sourceSize</key>
-                <string>{120,65}</string>
-            </dict>
-            <key>SpaceFlier_med_1.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{157,0},{90,53}}</string>
-                <key>offset</key>
-                <string>{2,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{17,7},{90,53}}</string>
-                <key>sourceSize</key>
-                <string>{120,65}</string>
-            </dict>
-            <key>SpaceFlier_sm_1.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{159,106},{78,53}}</string>
-                <key>offset</key>
-                <string>{8,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{29,7},{78,53}}</string>
-                <key>sourceSize</key>
-                <string>{120,65}</string>
-            </dict>
-            <key>SpaceFlier_sm_2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{159,53},{78,53}}</string>
-                <key>offset</key>
-                <string>{8,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{29,7},{78,53}}</string>
-                <key>sourceSize</key>
-                <string>{120,65}</string>
-            </dict>
-            <key>asteroid.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{0,0},{127,127}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{8,8},{127,127}}</string>
-                <key>sourceSize</key>
-                <string>{143,143}</string>
-            </dict>
-            <key>enemy_spaceship.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{0,127},{117,51}}</string>
-                <key>offset</key>
-                <string>{-1,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{4,5},{117,51}}</string>
-                <key>sourceSize</key>
-                <string>{127,61}</string>
-            </dict>
-            <key>laserbeam_blue.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{51,229},{55,13}}</string>
-                <key>offset</key>
-                <string>{1,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{4,3},{55,13}}</string>
-                <key>sourceSize</key>
-                <string>{61,19}</string>
-            </dict>
-            <key>laserbeam_red.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{0,244},{25,10}}</string>
-                <key>offset</key>
-                <string>{0,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{2,2},{25,10}}</string>
-                <key>sourceSize</key>
-                <string>{29,12}</string>
-            </dict>
-            <key>powerup.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{127,53},{58,32}}</string>
-                <key>offset</key>
-                <string>{-1,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{2,4},{58,32}}</string>
-                <key>sourceSize</key>
-                <string>{64,40}</string>
-            </dict>
-        </dict>
-        <key>metadata</key>
-        <dict>
-            <key>format</key>
-            <integer>2</integer>
-            <key>size</key>
-            <string>{256,256}</string>
-            <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:e624551a9c84414ebc63983cd5f62c16$</string>
-            <key>textureFileName</key>
-            <string>Sprites.pvr.ccz</string>
-        </dict>
-    </dict>
+<dict>
+	<key>frames</key>
+	<dict>
+		
+		<key>asteroid.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {19, 21}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{19, 21}</string>
+			<key>spriteSourceSize</key>
+			<string>{19, 21}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{10, 30}, {19, 21}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>laserbeam_blue.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {51, 16}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{51, 16}</string>
+			<key>spriteSourceSize</key>
+			<string>{51, 16}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 0}, {51, 16}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>ship.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {79, 49}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{79, 49}</string>
+			<key>spriteSourceSize</key>
+			<string>{79, 49}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{49, 14}, {79, 49}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+	</dict>
+	<key>metadata</key>
+	<dict>
+		<key>version</key>
+		<string>1.5.2</string>
+		<key>format</key>
+		<integer>3</integer>
+		<key>size</key>
+		<string>{128, 64}</string>
+		<key>name</key>
+		<string>Sprites.zwd</string>
+		<key>premultipliedAlpha</key>
+		<false/>
+		<key>target</key>
+		<dict>
+			<key>name</key>
+			<string>default</string>
+			<key>textureFileName</key>
+			<string>Sprites</string>
+			<key>textureFileExtension</key>
+			<string>.png</string>
+			<key>coordinatesFileName</key>
+			<string>Sprites</string>
+			<key>coordinatesFileExtension</key>
+			<string>.plist</string>
+			<key>premultipliedAlpha</key>
+			<false/>
+		</dict>
+	</dict>
+</dict>
 </plist>

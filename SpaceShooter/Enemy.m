@@ -1,6 +1,7 @@
 #import "Enemy.h"
 @implementation Enemy
 
+//@synthesize particleSystem;
 //@synthesize moveDuration;
 
 -(id) initWithSpriteName:(NSString *)spriteName {    
@@ -48,4 +49,5 @@
 -(void) setInvisible {
     self.visible = NO;
 }
+
 @end

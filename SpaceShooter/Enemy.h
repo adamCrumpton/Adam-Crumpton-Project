@@ -3,9 +3,11 @@
 #import "SimpleAudioEngine.h"
 
 @interface Enemy : CCSprite {
+    //CCParticleSystem *particleSystem;
     //int moveDuration;
 }
 
+//@property(nonatomic, assign) CCParticleSystem *particleSystem;
 //@property(nonatomic, assign) int moveDuration;
 
 -(id) initWithSpriteName: (NSString *) spriteName;
