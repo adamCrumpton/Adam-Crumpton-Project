@@ -35,7 +35,7 @@
 }
 
 -(void) destroy {
-    self.visible = NO;
+    [self setInvisible];
 }
 
 -(BOOL) isActive {

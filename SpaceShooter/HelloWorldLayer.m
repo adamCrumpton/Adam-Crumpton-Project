@@ -4,6 +4,7 @@
 #import "SimpleAudioEngine.h"
 #import "EnemyShip.h"
 #import "Enemy.h"
+#import "Asteroid.h"
 
 // number of asteroid sprites allocated for reuse.
 #define kNumAsteroids   15
@@ -62,6 +63,24 @@
 }
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    // straight shooting (for final release)
+    CGSize winSize = [CCDirector sharedDirector].winSize;
+    
+    CCSprite *shipLaser = [_shipLasers objectAtIndex:_nextShipLaser];
+    _nextShipLaser++;
+    if (_nextShipLaser >= _shipLasers.count) _nextShipLaser = 0;
+    
+    shipLaser.position = ccpAdd(_ship.position, ccp(shipLaser.contentSize.width/2, 0));
+    shipLaser.visible = YES;
+    [shipLaser stopAllActions];
+    [shipLaser runAction:[CCSequence actions:
+                          [CCMoveBy actionWithDuration:0.5 position:ccp(winSize.width, 0)],
+                          [CCCallFuncN actionWithTarget:self selector:@selector(setInvisible:)],
+                          nil]];
+    
+    // shooting with rotation (for simulation debugging)
+    // remove code for release.
+    /*
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInView:[touch view]];
     location = [[CCDirector sharedDirector] convertToGL:location];
@@ -87,14 +106,15 @@
     int realX = winSize.width + (shipLaser.contentSize.width/2);
     float ratio = (float) offY / (float) offX;
     int realY = (realX * ratio) + shipLaser.position.x;
-    int offRealX = realX - shipLaser.position.y;
-    int offRealY = realY - shipLaser.position.x;
     CGPoint realDest = ccp(realX, realY);
     
     shipLaser.position = ccpAdd(_ship.position, ccp((shipLaser.contentSize.width/2), 0));
     shipLaser.visible = YES;
     [shipLaser stopAllActions];
     
+    
+     int offRealX = realX - shipLaser.position.y;
+     int offRealY = realY - shipLaser.position.x;
     float angleRadians = atanf((float)offRealY / (float)offRealX);
     float angleDegrees = CC_RADIANS_TO_DEGREES(angleRadians);
     float cocosAngle = -1 * (angleDegrees);
@@ -106,17 +126,20 @@
     }
     _ship.rotation = cocosAngle;
     shipLaser.rotation = cocosAngle;
+     
     
     [shipLaser runAction:[CCSequence actions:
                           [CCMoveBy actionWithDuration:0.5 position:realDest],
                           [CCCallFuncN actionWithTarget:self selector:@selector(setInvisible:)],
                           nil]];
+     
+     */
     [[SimpleAudioEngine sharedEngine] playEffect:@"laser_ship.caf"];
     
 }
 
 - (void)restartTapped:(id)sender {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[HelloWorldLayer scene]]];   
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipX transitionWithDuration:0.5 scene:[HelloWorldLayer scene]]];
 }
 - (void)endScene:(EndReason)endReason {
     
@@ -241,7 +264,7 @@
 }
 
 - (void) update:(ccTime)dt {
-    
+    CGSize winSize = [CCDirector sharedDirector].winSize;
     CGPoint backgroundScrollVel = ccp(-1000, 0);
     _backgroundNode.position = ccpAdd(_backgroundNode.position, ccpMult(backgroundScrollVel, dt));
     NSArray *spaceDusts = [NSArray arrayWithObjects:_spacedust1, _spacedust2, nil];
@@ -251,7 +274,7 @@
         }
     }
 
-    CGSize winSize = [CCDirector sharedDirector].winSize;
+
     float maxY = winSize.height - _ship.contentSize.height/2;
     float minY = _ship.contentSize.height/2;    
     float newY = _ship.position.y + (_shipPointsPerSecY * dt);
@@ -295,24 +318,26 @@
 
 -(void) initBackground 
 {
-    CGSize winSize = [CCDirector sharedDirector].winSize;
-    
+    CGPoint dustSpeed = ccp(0.05, 0.05);    
+
     // planet background.
-    // Set higher bit-depth for background image to avoid banding on the background.
-    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA8888];
+    // Set higher bit-depth for background image to avoid banding on the background
+    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGB5A1];
     _mainbg = [CCSprite spriteWithFile:@"bg_background.png"];
-    _mainbg.position = ccp(0, winSize.width/2);
+    _mainbg.anchorPoint = ccp(0, 0);
+    _mainbg.position = ccp(0, 0);    
     [self addChild: _mainbg z:-1];
     // reset back to lower bit-depth.
-    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA4444];
+    [CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_Default];
     
     // background star parallaxing.
     _backgroundNode = [CCParallaxNode node];
-    CGPoint dustSpeed = ccp(0.05, 0.05);    
     _spacedust1 = [CCSprite spriteWithFile:@"bg_front_spacedust.png"];
+    _spacedust1.anchorPoint = ccp(0, 0);
     _spacedust2 = [CCSprite spriteWithFile:@"bg_front_spacedust.png"];    
-    [_backgroundNode addChild:_spacedust1 z:0 parallaxRatio:dustSpeed positionOffset:ccp(0,winSize.width/2)];
-    [_backgroundNode addChild:_spacedust2 z:0 parallaxRatio:dustSpeed positionOffset:ccp(_spacedust1.contentSize.width,winSize.width/2)];            
+    _spacedust2.anchorPoint = ccp(0, 0);
+    [_backgroundNode addChild:_spacedust1 z:0 parallaxRatio:dustSpeed positionOffset:ccp(0,0)];
+    [_backgroundNode addChild:_spacedust2 z:0 parallaxRatio:dustSpeed positionOffset:ccp(_spacedust1.contentSize.width,0)];
     [self addChild:_backgroundNode z:-1];
     
     // fast flying spacedust.
@@ -333,13 +358,12 @@
     // Allocate asteroids.
     _asteroids = [[CCArray alloc] initWithCapacity:kNumAsteroids];
     for(int i = 0; i < kNumAsteroids; ++i) { 
-        Enemy *asteroid = [Enemy enemyWithSpriteName:@"asteroid.png"];
+        Enemy *asteroid = [Asteroid asteroid];
         [self addChild:asteroid];
         [_asteroids addObject:asteroid];
         
-        CCParticleSystem *fire = [CCParticleSystemQuad particleWithFile:@"Comet.plist"];
-        fire.position = ccp(8, 8);
-        [asteroid addChild:fire z:1];
+        // set unused asteroid sprites to be offscreen.
+        asteroid.position = ccp(-50, -50);
     }
     
     // Allocate lasers.

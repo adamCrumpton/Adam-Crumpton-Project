@@ -8,9 +8,13 @@
 
 #import "Enemy.h"
 
-@interface Asteroid : Enemy
+@interface Asteroid : Enemy {
+    CCParticleSystem *fire;
+}
 
--(id)init: (CCScene *) stage;
-+(id)asteroid: (CCScene *) stage;
+@property(nonatomic, assign) CCParticleSystem *fire;
+
+-(id)init;
++(id)asteroid;
 
 @end

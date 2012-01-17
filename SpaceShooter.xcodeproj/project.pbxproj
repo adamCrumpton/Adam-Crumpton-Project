@@ -177,6 +177,8 @@
 		F46092BA14BFC72800CAB8F3 /* Comet.plist in Resources */ = {isa = PBXBuildFile; fileRef = F46092B914BFC72800CAB8F3 /* Comet.plist */; };
 		F46092BD14BFCAC600CAB8F3 /* Asteroid.m in Sources */ = {isa = PBXBuildFile; fileRef = F46092BC14BFCAC600CAB8F3 /* Asteroid.m */; };
 		F4C6932414B0E42D00DBF967 /* bg_background.png in Resources */ = {isa = PBXBuildFile; fileRef = F4C6932314B0E42D00DBF967 /* bg_background.png */; };
+		F4CB959F14C51E0100AA43F4 /* bg_background-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CB959E14C51E0100AA43F4 /* bg_background-hd.png */; };
+		F4CB95AD14C5225400AA43F4 /* bg_front_spacedust-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CB95AC14C5225400AA43F4 /* bg_front_spacedust-hd.png */; };
 		F4E6E7AF14BE597300E217C4 /* EnemyShip.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6E7AE14BE597300E217C4 /* EnemyShip.m */; };
 		F4E6E7B614BE823D00E217C4 /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E6E7B514BE823D00E217C4 /* Enemy.m */; };
 /* End PBXBuildFile section */
@@ -472,6 +474,8 @@
 		F46092BB14BFCAC600CAB8F3 /* Asteroid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Asteroid.h; sourceTree = "<group>"; };
 		F46092BC14BFCAC600CAB8F3 /* Asteroid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Asteroid.m; sourceTree = "<group>"; };
 		F4C6932314B0E42D00DBF967 /* bg_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_background.png; sourceTree = "<group>"; };
+		F4CB959E14C51E0100AA43F4 /* bg_background-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_background-hd.png"; sourceTree = "<group>"; };
+		F4CB95AC14C5225400AA43F4 /* bg_front_spacedust-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_front_spacedust-hd.png"; sourceTree = "<group>"; };
 		F4E6E7AD14BE597300E217C4 /* EnemyShip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyShip.h; sourceTree = "<group>"; };
 		F4E6E7AE14BE597300E217C4 /* EnemyShip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnemyShip.m; sourceTree = "<group>"; };
 		F4E6E7B414BE823D00E217C4 /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
@@ -936,6 +940,8 @@
 		66DBCA4A14911E01007A835A /* Backgrounds */ = {
 			isa = PBXGroup;
 			children = (
+				F4CB95AC14C5225400AA43F4 /* bg_front_spacedust-hd.png */,
+				F4CB959E14C51E0100AA43F4 /* bg_background-hd.png */,
 				F4C6932314B0E42D00DBF967 /* bg_background.png */,
 				66DBCA4B14911E01007A835A /* bg_front_spacedust.png */,
 				66DBCA4C14911E01007A835A /* bg_galaxy.png */,
@@ -1099,6 +1105,8 @@
 				F46092B714BFC0CE00CAB8F3 /* Sprites.plist in Resources */,
 				F46092B814BFC0CE00CAB8F3 /* Sprites.png in Resources */,
 				F46092BA14BFC72800CAB8F3 /* Comet.plist in Resources */,
+				F4CB959F14C51E0100AA43F4 /* bg_background-hd.png in Resources */,
+				F4CB95AD14C5225400AA43F4 /* bg_front_spacedust-hd.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
